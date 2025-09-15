@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
+// In-memory storage
+let users = [];
+let exercises = [];
+
 router.post("/", (req, res) => {
   const username = req.body.username;
   const _id = String(Date.now() + Math.floor(Math.random() * 1000));
