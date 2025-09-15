@@ -48,6 +48,8 @@ router.get("/shorturl/:short_url", function (req, res) {
   }
 });
 
+router.use("/users", userRouter);
+
 router.get("/:date?", function (req, res) {
   let dateParam = req.params.date;
   let date;
@@ -75,6 +77,5 @@ router.get("/:date?", function (req, res) {
   });
 });
 
-router.use("/users", userRouter);
 
 module.exports = router;
