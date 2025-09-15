@@ -23,6 +23,14 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
+app.get("/api/whoami", function (req, res) {
+  res.json({
+    ipaddress: req.ip, // or req.headers['x-forwarded-for'] for proxies
+    language: req.headers["accept-language"],
+    software: req.headers["user-agent"],
+  });
+});
+
 app.get("/api/:date?", function (req, res) {
   let dateParam = req.params.date;
   let date;
