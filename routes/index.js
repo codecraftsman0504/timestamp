@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const userRouter = require("./user.router");
+var multer = require("multer");
+
+var upload = multer({ storage: multer.memoryStorage() });
 
 // your first API endpoint...
 router.get("/hello", function (req, res) {
@@ -50,6 +53,17 @@ router.get("/shorturl/:short_url", function (req, res) {
 
 router.use("/users", userRouter);
 
+router.post("/fileanalyse", upload.single("upfile"), function (req, res) {
+  if (!req.file) {
+    return res.json({ error: "No file uploaded" });
+  }
+  res.json({
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size,
+  });
+});
+
 router.get("/:date?", function (req, res) {
   let dateParam = req.params.date;
   let date;
@@ -76,6 +90,5 @@ router.get("/:date?", function (req, res) {
     utc: date.toUTCString(),
   });
 });
-
 
 module.exports = router;
